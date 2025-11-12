@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NotesAI</string>
+    <string name="main_title">Summarize your notes</string>
+    <string name="main_description">Summarize notes you take in class and PDFs you upload.</string>
+    <string name="class_notes_title">Class Notes</string>
+    <string name="class_notes_preview">Overview of machine learning concepts, including supervised and unsupervised learning, key algorithms, and...</string>
+    <string name="upload_pdf_title">Upload PDF</string>
+    <string name="upload_pdf_description">Upload a document for analysis</string>
+    <string name="upload_button">Upload</string>
+</resources>
