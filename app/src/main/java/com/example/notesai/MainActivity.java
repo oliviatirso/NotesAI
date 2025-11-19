@@ -144,5 +144,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return fileName;
     }
-    // --- END NEW HELPER METHOD ---
 }
