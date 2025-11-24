@@ -7,8 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:openDrawer="end"> <ScrollView
-    android:layout_width="match_parent"
+    tools:openDrawer="start">
+    
+    <ScrollView
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/background_white">
@@ -21,7 +23,7 @@
 
         <LinearLayout
             android:id="@+id/header_bar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingStart="16dp"
@@ -160,7 +162,7 @@
                 android:id="@+id/upload_pdf_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/upload_pdf_title"
+                android:text="@string/pdf_summarizer_title"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -173,7 +175,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/upload_pdf_description"
+                android:text="@string/pdf_summarizer_description"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/upload_pdf_title"
@@ -221,11 +223,23 @@
 
 </ScrollView>
 
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/create_new"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/logo_color"
+        app:tint="@color/white" />
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_drawer_menu" />
 
