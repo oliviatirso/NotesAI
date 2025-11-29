@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,6 +28,29 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        
+        <activity
+            android:name=".ClassNotesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        
+        <activity
+            android:name=".GroupsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        
+        <activity
+            android:name=".GroupDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".GroupsActivity" />
+        <activity
+            android:name=".NotesListActivity"
+            android:exported="false"
+            android:parentActivityName=".GroupDetailActivity" />
+        <activity
+            android:name=".NoteDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".NotesListActivity" />
     </application>
 
 </manifest>
