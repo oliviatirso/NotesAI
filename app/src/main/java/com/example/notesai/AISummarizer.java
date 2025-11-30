@@ -22,8 +22,8 @@ public class AISummarizer {
 
     public AISummarizer() {
         client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS) // Increased timeout for longer completions
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -36,12 +36,17 @@ public class AISummarizer {
         // Create the JSON body
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("model", "gpt-3.5-turbo"); // or gpt-4
+            jsonBody.put("model", "gpt-3.5-turbo");
 
             JSONArray messages = new JSONArray();
             JSONObject systemMessage = new JSONObject();
             systemMessage.put("role", "system");
-            systemMessage.put("content", "You are a helpful study assistant. Summarize the following text concisely.");
+            // Updated prompt to generate a study guide with TO-DOs and key concepts
+            systemMessage.put("content", "You are a helpful study assistant. Create a concise but detailed study guide based on the following text. " +
+                    "Structure your response clearly. " +
+                    "1. Highlight the most important concepts. " +
+                    "2. Include a specific section listing any TO DOs, assignments, or deadlines mentioned. " +
+                    "3. Ensure the summary is comprehensive enough to serve as a standalone review tool.");
             messages.put(systemMessage);
 
             JSONObject userMessage = new JSONObject();

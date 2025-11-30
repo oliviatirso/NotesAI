@@ -1,5 +1,6 @@
 package com.example.notesai;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 
@@ -7,6 +8,9 @@ import com.example.notesai.data.GroupDataManager;
 import com.example.notesai.model.Category;
 import com.example.notesai.model.Group;
 import com.example.notesai.model.Note;
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader;
+import com.tom_roush.pdfbox.pdmodel.PDDocument;
+import com.tom_roush.pdfbox.text.PDFTextStripper;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,7 +27,24 @@ import java.util.ArrayList;
 
 public class FileUtil {
 
+    private static boolean isPdfBoxInitialized = false;
+
+    public static void initPdfBox(Context context) {
+        if (!isPdfBoxInitialized) {
+            PDFBoxResourceLoader.init(context.getApplicationContext());
+            isPdfBoxInitialized = true;
+        }
+    }
+
     public static String readTextFromUri(Context context, Uri uri) {
+        initPdfBox(context);
+        String mimeType = context.getContentResolver().getType(uri);
+
+        if (mimeType != null && mimeType.equals("application/pdf")) {
+            return readTextFromPdf(context, uri);
+        }
+
+        // Default to reading as plain text
         StringBuilder stringBuilder = new StringBuilder();
         try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -36,6 +57,19 @@ public class FileUtil {
             return "Error reading file: " + e.getMessage();
         }
         return stringBuilder.toString();
+    }
+
+    private static String readTextFromPdf(Context context, Uri uri) {
+        try (InputStream inputStream = context.getContentResolver().openInputStream(uri)) {
+            PDDocument document = PDDocument.load(inputStream);
+            PDFTextStripper stripper = new PDFTextStripper();
+            String text = stripper.getText(document);
+            document.close();
+            return text;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error parsing PDF: " + e.getMessage();
+        }
     }
 
     public static void exportNotesToCsv(Context context, Uri uri, List<Group> groups) throws Exception {

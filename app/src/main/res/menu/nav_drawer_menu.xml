@@ -13,9 +13,5 @@
             android:id="@+id/nav_export"
             android:icon="@android:drawable/ic_menu_save"
             android:title="@string/export_notes" />
-        <item
-            android:id="@+id/nav_import"
-            android:icon="@android:drawable/ic_menu_upload"
-            android:title="@string/import_notes" />
     </group>
 </menu>
